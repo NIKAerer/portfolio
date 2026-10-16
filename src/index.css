@@ -104,7 +104,7 @@ section { scroll-margin-top: 24px; }
 .ed-row > p { margin: 8px 0 0; color: var(--papier); font-size: clamp(17px, 1.6vw, 20px); max-width: 52ch; }
 .ed-row .features { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 22px; color: var(--cendre); font-size: 15px; }
 .ed-row .features li::before { content: "— "; color: var(--led); }
-.ed-row .stack { font-family: var(--mono); font-size: 13px; color: var(--papier); }
+.ed-row .stack { display: flex; flex-wrap: wrap; row-gap: 4px; font-family: var(--mono); font-size: 13px; color: var(--papier); }
 .ed-row .stack i { font-style: normal; color: var(--cendre); opacity: .5; padding-inline: 8px; }
 .ed-row .stack span { white-space: nowrap; }
 .ed-row .links { display: flex; gap: 20px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--cendre); }

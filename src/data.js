@@ -16,13 +16,8 @@ export const projects = [
   {
     name: 'Discipline-Leveling',
     pitch:
-      'Une application qui transforme les habitudes en RPG : on crée son personnage, on valide des quêtes quotidiennes et on monte de rang, dans l’esprit de Solo Leveling.',
-    features: [
-      'Création de personnage et avatar',
-      'Quêtes quotidiennes et calcul de rang',
-      'Suivi de disciplines avec historique',
-      'Tracker de parties League of Legends',
-    ],
+      'Les habitudes transformées en RPG : quêtes quotidiennes, montée de rang, dans l’esprit de Solo Leveling.',
+    features: ['Personnage et avatar', 'Quêtes et calcul de rang', 'Suivi des disciplines'],
     stack: ['Symfony', 'API REST', 'JWT', 'React 19', 'Vite'],
     status: 'En cours',
     code: null, // lien GitHub quand le dépôt sera public
@@ -31,13 +26,8 @@ export const projects = [
   {
     name: 'PokeWeb',
     pitch:
-      'Un jeu web d’aventure Pokémon : le dresseur capture, fait évoluer et combat ses créatures, avec un Pokédex complet importé en base.',
-    features: [
-      'Inscription et connexion sécurisées (JWT)',
-      'Import du Pokédex par commande Symfony',
-      'Sections capture, évolution et combat',
-      'Pokéball en 3D avec Three.js',
-    ],
+      'Un jeu web d’aventure Pokémon : capturer, faire évoluer et combattre, avec tout le Pokédex en base.',
+    features: ['Connexion sécurisée (JWT)', 'Capture, évolution, combat', 'Pokéball en 3D'],
     stack: ['Symfony', 'API Platform', 'React', 'Tailwind', 'Three.js'],
     status: 'En cours',
     code: null,
@@ -49,22 +39,12 @@ export const experience = [
   {
     org: 'Unicancer',
     place: 'Paris',
-    detail: 'Fédération nationale des centres de lutte contre le cancer',
     role: 'Développeur web',
-    periods: ['Oct. – déc. 2025 · CDD', 'Oct. – déc. 2024 · CDD', 'Juillet 2024 · Stage'],
+    periods: ['2024 – 2025 · stage puis deux CDD'],
     points: [
-      'Résolution de tickets en autonomie : évolutions et corrections sur les sites de l’organisation',
-      'Mise à jour des pages et des contenus',
-      'Création, mise en ligne et paramétrage de questionnaires',
-      'Recueil des besoins des services non techniques, suivi jusqu’à la mise en ligne',
+      'Évolutions et corrections sur les sites de l’organisation, en autonomie',
+      'Questionnaires en ligne et pages créés avec les services métier',
     ],
-  },
-  {
-    org: 'Novo Nordisk',
-    place: 'Chartres',
-    role: 'Opérateur de production',
-    periods: ['Juin – août 2022 · Emploi d’été'],
-    points: ['Travail en milieu pharmaceutique, avec un respect strict des procédures qualité et d’hygiène'],
   },
 ]
 

@@ -47,7 +47,7 @@ export function Projects() {
 export function Parcours() {
   return (
     <section id="parcours">
-      <Label left="Parcours" right="Paris · Rouen · Chartres" />
+      <Label left="Parcours" right="Paris · Rouen" />
       <div className="ed-cols">
         <div className="ed-col">
           <h4>Expérience</h4>
