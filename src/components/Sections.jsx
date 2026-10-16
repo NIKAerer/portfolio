@@ -2,38 +2,44 @@ import { education, experience, profile, projects, skills } from '../data'
 
 const YEAR = new Date().getFullYear()
 
-function Project({ p }) {
+// Style éditorial : la typo porte l'identité, une ligne par élément, des filets fins entre les lignes.
+function Label({ left, right }) {
   return (
-    <article className="projet">
-      <div className="projet-head">
-        <h3>{p.name}</h3>
-        <span className="badge">{p.status}</span>
-      </div>
-      <p>{p.pitch}</p>
-      <ul className="features">
-        {p.features.map((f) => <li key={f}>{f}</li>)}
-      </ul>
-      <div className="tags">{p.stack.map((s) => <span key={s}>{s}</span>)}</div>
-      <div className="links">
-        {p.demo && <a href={p.demo} target="_blank" rel="noopener">Démo ↗</a>}
-        {p.code ? <a href={p.code} target="_blank" rel="noopener">Code ↗</a> : <span className="soon">Code bientôt public</span>}
-      </div>
-    </article>
+    <div className="ed-label">
+      <span>{left}</span>
+      {right && <span>{right}</span>}
+    </div>
   )
 }
 
 export function Projects() {
   return (
     <section id="projets">
-      <span className="label">Projets</span>
-      <h2>Ce que je construis</h2>
-      <div className="projets">
-        {projects.map((p) => <Project key={p.name} p={p} />)}
-        <article className="projet wip">
-          <h3>Projet 3</h3>
-          <p>Un outil métier, pensé dès le départ avec tests, intégration continue et démo en ligne. Il arrive bientôt.</p>
+      <Label left="Projets" right="2025 – 2026" />
+      {projects.map((p) => (
+        <article className="ed-row" key={p.name}>
+          <h3>{p.name}</h3>
+          <span className="st">● {p.status}</span>
+          <p>{p.pitch}</p>
+          <ul className="features">
+            {p.features.map((f) => <li key={f}>{f}</li>)}
+          </ul>
+          <div className="stack">
+            {p.stack.map((s, i) => (
+              <span key={s}>{i > 0 && <i>/</i>}{s}</span>
+            ))}
+          </div>
+          <div className="links">
+            {p.demo && <a href={p.demo} target="_blank" rel="noopener">Démo ↗</a>}
+            {p.code ? <a href={p.code} target="_blank" rel="noopener">Code ↗</a> : <span>Code bientôt public</span>}
+          </div>
         </article>
-      </div>
+      ))}
+      <article className="ed-row soon">
+        <h3>Projet 3</h3>
+        <span className="st">○ Bientôt</span>
+        <p>Un outil métier, pensé dès le départ avec tests, intégration continue et démo en ligne.</p>
+      </article>
     </section>
   )
 }
@@ -41,32 +47,26 @@ export function Projects() {
 export function Parcours() {
   return (
     <section id="parcours">
-      <span className="label">Parcours</span>
-      <h2>Expérience et formation</h2>
-      <div className="parcours">
-        <div className="col">
-          <h3 className="col-title">Expérience</h3>
+      <Label left="Parcours" right="Paris · Rouen · Chartres" />
+      <div className="ed-cols">
+        <div className="ed-col">
+          <h4>Expérience</h4>
           {experience.map((x) => (
-            <div className="entry" key={x.org}>
-              <div className="entry-head">
-                <strong>{x.role}</strong>
-                <span>{x.org} · {x.place}</span>
-              </div>
-              {x.detail && <p className="muted">{x.detail}</p>}
-              <p className="periods">{x.periods.join(' · ')}</p>
+            <div className="ed-item" key={x.org}>
+              <span className="when">{x.periods.join(' · ')}</span>
+              <strong>{x.org}</strong>
+              <p className="role">{x.role} · {x.place}</p>
               <ul>{x.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
             </div>
           ))}
         </div>
-        <div className="col">
-          <h3 className="col-title">Formation</h3>
+        <div className="ed-col">
+          <h4>Formation</h4>
           {education.map((e) => (
-            <div className="entry" key={e.title}>
-              <div className="entry-head">
-                <strong>{e.title}</strong>
-                <span>{e.years}{e.note ? ` · ${e.note}` : ''}</span>
-              </div>
-              <p className="muted">{e.where}</p>
+            <div className="ed-item" key={e.title}>
+              <span className="when">{e.years}{e.note ? ` · ${e.note}` : ''}</span>
+              <strong>{e.title}</strong>
+              <p className="role">{e.where}</p>
             </div>
           ))}
         </div>
@@ -78,30 +78,28 @@ export function Parcours() {
 export function Skills() {
   return (
     <section id="competences">
-      <span className="label">Compétences</span>
-      <h2>Ma boîte à outils</h2>
-      <div className="skills">
+      <Label left="Compétences" />
+      <dl className="ed-skills">
         {skills.map((g) => (
-          <div className="skill-group" key={g.group}>
-            <h3>{g.group}</h3>
-            <div className="tags">{g.items.map((s) => <span key={s}>{s}</span>)}</div>
+          <div key={g.group}>
+            <dt>{g.group}</dt>
+            <dd>{g.items.join(' · ')}</dd>
           </div>
         ))}
-      </div>
+      </dl>
     </section>
   )
 }
 
 export function Contact() {
   return (
-    <section id="contact" className="contact">
-      <span className="label">Contact</span>
-      <h2>On travaille ensemble ?</h2>
-      <p>Je cherche un poste de développeur web junior en Île-de-France ou en télétravail. Écris-moi, je réponds vite.</p>
-      <div className="ctas">
-        <a className="btn primary" href={`mailto:${profile.email}`}>{profile.email}</a>
-        <a className="btn" href={profile.github} target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
+    <section id="contact" className="ed-cta">
+      <Label left="Contact" right="Île-de-France · télétravail" />
+      <a className="big" href={`mailto:${profile.email}`}>Écris-moi <span aria-hidden="true">→</span></a>
+      <p className="addr">
+        <span>{profile.email}</span>
+        <a href={profile.github} target="_blank" rel="noopener">github.com/NIKAerer ↗</a>
+      </p>
     </section>
   )
 }
