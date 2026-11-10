@@ -28,13 +28,10 @@ export const projects = [
     pitch:
       'Mon propre client League of Legends : un launcher pensé comme je voudrais l’utiliser, avec la draft, le chat d’équipe et le classement entre amis.',
     features: ['Accueil et profil', 'Draft et chat d’équipe', 'Classement entre amis'],
-    stack: ['Tauri', 'Windows', 'Claude Code'],
+    stack: ['API Riot Games', 'Tauri', 'Windows', 'Claude Code'],
     about: [
       'NIXUS remplace le client habituel : l’accueil avec le classement de tes amis, ton profil et ton historique, la collection de tes champions avec tri et filtres, la draft avec les winrates contre les adversaires, et le chat d’équipe.',
       'Il se met à jour tout seul. Chaque version est un installateur signé, et un bouton « Rechercher une mise à jour » suffit : plus de vingt-cinq versions ont été publiées en une semaine, début novembre 2026.',
-    ],
-    mine: [
-      'Publication et mise à jour automatique : installateurs signés, fichier de version lu par l’application',
     ],
     code: null,
     codeNote: 'Le code source est privé.',
@@ -53,10 +50,6 @@ export const projects = [
     about: [
       'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
       'Le jeu de base est PokéSurvivor de JPTER78 (licence non commerciale) : j’en suis reparti pour construire tout le mode Aventure.',
-    ],
-    mine: [
-      'Le mode Aventure en entier : plus de 4 700 lignes de code et une cinquantaine de commits, de fin octobre au 3 novembre 2026',
-      'Le déploiement : chaque modification poussée republie le jeu automatiquement sur GitHub Pages',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',

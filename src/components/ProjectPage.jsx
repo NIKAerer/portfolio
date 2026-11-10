@@ -75,8 +75,6 @@ export default function ProjectPage() {
             {project.about.map((t) => <p key={t}>{t}</p>)}
           </section>
           <section>
-            <h3>Ce que j’ai fait</h3>
-            <ul>{project.mine.map((t) => <li key={t}>{t}</li>)}</ul>
             <h3>Technologies</h3>
             <p className="proj-stack">{project.stack.join(' · ')}</p>
           </section>
