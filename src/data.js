@@ -36,7 +36,12 @@ export const projects = [
     code: null,
     codeNote: 'Le code source est privé.',
     links: [{ label: 'Versions publiées', href: 'https://github.com/NIKAerer/NIXUS' }],
-    shots: [],
+    shots: [
+      { src: 'projets/nixus-home.webp', alt: 'Accueil de NIXUS avec le classement entre amis et les dernières parties', caption: 'Accueil : classement entre amis et dernières parties' },
+      { src: 'projets/nixus-draft.webp', alt: 'Écran de draft de NIXUS avec le choix du champion et le chat d’équipe', caption: 'Draft : choix du champion, statistiques et chat d’équipe' },
+      { src: 'projets/nixus-grind.webp', alt: 'Page Grind de NIXUS avec la courbe de LP', caption: 'Grind : courbe de LP et série en cours' },
+      { src: 'projets/nixus-match.webp', alt: 'Détail d’une partie dans NIXUS', caption: 'Détail d’une partie' },
+    ],
   },
   {
     slug: 'pokesurvivor',
@@ -54,7 +59,12 @@ export const projects = [
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
     links: [{ label: 'Jouer', href: 'https://nikaerer.github.io/pokesurvivor/' }],
-    shots: [],
+    shots: [
+      { src: 'projets/pokesurvivor-accueil.webp', alt: 'Accueil de PokéSurvivor avec la boîte de Pokémon', caption: 'Accueil et boîte de Pokémon' },
+      { src: 'projets/pokesurvivor-carte.webp', alt: 'Mode Aventure : la carte de Kanto', caption: 'Mode Aventure : la carte de Kanto' },
+      { src: 'projets/pokesurvivor-combat.webp', alt: 'Combat au tour par tour dans l’herbe', caption: 'Combat au tour par tour' },
+      { src: 'projets/pokesurvivor-partie.webp', alt: 'Une partie survivor avec des hordes de Pokémon', caption: 'Mode survivor' },
+    ],
   },
 ]
 
