@@ -28,7 +28,7 @@ export const projects = [
     pitch:
       'Une application de bureau pour les joueurs de League of Legends : préparer la draft, suivre ses parties et se comparer à ses amis.',
     features: ['Draft et statistiques', 'Classement entre amis', 'Chat d’équipe'],
-    stack: ['Tauri', 'Windows'],
+    stack: ['Tauri', 'Windows', 'Claude Code'],
     about: [
       'NIXUS accompagne une partie de League of Legends de la sélection des champions jusqu’au bilan : draft avec winrate contre les adversaires, historique des parties et de tes amis, classement Solo/Duo et Flex entre amis, chat d’équipe, collection de champions avec tri et filtres.',
       'L’application se met à jour toute seule : chaque version est un installateur signé, publié avec un fichier de version que l’appli lit via le bouton « Rechercher une mise à jour ». Plus de vingt-cinq versions ont été publiées entre le 4 et le 9 novembre 2026.',
@@ -49,7 +49,7 @@ export const projects = [
     pitch:
       'Un jeu Pokémon jouable dans le navigateur, sur ordinateur comme sur téléphone. J’y ai développé le mode Aventure : on parcourt Kanto avec son équipe et on affronte les dresseurs au tour par tour.',
     features: ['Carte de Kanto et combats au tour par tour', 'Équipe entraînée (IV et points d’effort)', 'Histoire en chapitres'],
-    stack: ['JavaScript', 'PWA', 'GitHub Actions'],
+    stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
       'PokéSurvivor est un fan game gratuit, qui marche dans le navigateur et hors ligne une fois installé sur le téléphone. Le jeu de base est celui de JPTER78 (licence non commerciale) : j’en suis reparti pour construire le mode Aventure.',
       'Dans ce mode, le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent au tour par tour directement sur la carte. L’équipe a de vraies statistiques (IV et points d’effort), on peut réapprendre une attaque, utiliser des CT, acheter en boutique, et l’histoire avance par chapitres : Team Rocket, Sylphe SARL, Giovanni…',
