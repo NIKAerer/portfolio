@@ -210,3 +210,5 @@ a.ed-row:focus-visible { outline: 2px solid var(--led); outline-offset: 6px; }
 .proj-next a:hover { text-decoration: underline; }
 @media (max-width: 600px) { .proj-in { padding-inline: 16px; } .proj-kind { margin-top: 40px; } }
 @media (prefers-reduced-motion: reduce) { .proj { animation: none; } }
+.ed-row .cover { grid-column: 1 / -1; width: 100%; height: clamp(180px, 28vw, 340px); object-fit: cover; object-position: top; border: 1px solid var(--trait); border-radius: 8px; margin-top: 12px; }
+.proj-shots figure:first-child { grid-column: 1 / -1; }

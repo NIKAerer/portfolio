@@ -23,15 +23,15 @@ export const projects = [
   {
     slug: 'nixus',
     name: 'NIXUS',
-    kind: 'Application de bureau · Windows',
+    kind: 'Client League of Legends · Windows',
     status: 'En ligne',
     pitch:
-      'Une application de bureau pour les joueurs de League of Legends : préparer la draft, suivre ses parties et se comparer à ses amis.',
-    features: ['Draft et statistiques', 'Classement entre amis', 'Chat d’équipe'],
+      'Mon propre client League of Legends : un launcher pensé comme je voudrais l’utiliser, avec la draft, le chat d’équipe et le classement entre amis.',
+    features: ['Accueil et profil', 'Draft et chat d’équipe', 'Classement entre amis'],
     stack: ['Tauri', 'Windows', 'Claude Code'],
     about: [
-      'NIXUS accompagne une partie de League of Legends de la sélection des champions jusqu’au bilan : draft avec winrate contre les adversaires, historique des parties et de tes amis, classement Solo/Duo et Flex entre amis, chat d’équipe, collection de champions avec tri et filtres.',
-      'L’application se met à jour toute seule : chaque version est un installateur signé, publié avec un fichier de version que l’appli lit via le bouton « Rechercher une mise à jour ». Plus de vingt-cinq versions ont été publiées entre le 4 et le 9 novembre 2026.',
+      'NIXUS remplace le client habituel : l’accueil avec le classement de tes amis, ton profil et ton historique, la collection de tes champions avec tri et filtres, la draft avec les winrates contre les adversaires, et le chat d’équipe.',
+      'Il se met à jour tout seul. Chaque version est un installateur signé, et un bouton « Rechercher une mise à jour » suffit : plus de vingt-cinq versions ont été publiées en une semaine, début novembre 2026.',
     ],
     mine: [
       'Publication et mise à jour automatique : installateurs signés, fichier de version lu par l’application',
@@ -47,12 +47,12 @@ export const projects = [
     kind: 'Jeu web · mode Aventure',
     status: 'En ligne',
     pitch:
-      'Un jeu Pokémon jouable dans le navigateur, sur ordinateur comme sur téléphone. J’y ai développé le mode Aventure : on parcourt Kanto avec son équipe et on affronte les dresseurs au tour par tour.',
-    features: ['Carte de Kanto et combats au tour par tour', 'Équipe entraînée (IV et points d’effort)', 'Histoire en chapitres'],
+      'Parcourir Kanto avec son équipe, combattre au tour par tour et suivre l’histoire de la Team Rocket jusqu’à Giovanni, dans le navigateur ou sur téléphone.',
+    features: ['Carte de Kanto', 'Combats au tour par tour', 'Histoire en chapitres'],
     stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
-      'PokéSurvivor est un fan game gratuit, qui marche dans le navigateur et hors ligne une fois installé sur le téléphone. Le jeu de base est celui de JPTER78 (licence non commerciale) : j’en suis reparti pour construire le mode Aventure.',
-      'Dans ce mode, le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent au tour par tour directement sur la carte. L’équipe a de vraies statistiques (IV et points d’effort), on peut réapprendre une attaque, utiliser des CT, acheter en boutique, et l’histoire avance par chapitres : Team Rocket, Sylphe SARL, Giovanni…',
+      'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
+      'Le jeu de base est PokéSurvivor de JPTER78 (licence non commerciale) : j’en suis reparti pour construire tout le mode Aventure.',
     ],
     mine: [
       'Le mode Aventure en entier : plus de 4 700 lignes de code et une cinquantaine de commits, de fin octobre au 3 novembre 2026',
