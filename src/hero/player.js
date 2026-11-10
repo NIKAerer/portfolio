@@ -67,33 +67,47 @@ export function startPlayer(el, { base, onProgress, onReady }) {
   // Les fichiers sont gardés compressés (Blob) et seules les images autour de la position
   // courante sont décodées, hors du fil principal (createImageBitmap sur un Blob).
   // Le dessin n'utilise que des images déjà décodées : jamais de décodage pendant le scroll.
+  // Quand on saute loin d'un coup, on montre l'image décodée la plus proche (recalée par
+  // micro-zoom) en attendant que la bonne arrive : l'animation ne se fige jamais.
   const bmp = new Map()
   let winAt = ''
-  function want(key, blob) {
-    if (bmp.has(key) || !blob) return
-    bmp.set(key, null)
-    createImageBitmap(blob)
-      .then((b) => { if (bmp.has(key) && !bmp.get(key)) { bmp.set(key, b); lastKey = '' } else b.close() })
-      .catch(() => bmp.delete(key))
-  }
-  const has = (key) => !!bmp.get(key)
-  // l'image décodée la plus proche de k (en restant du côté déjà vu si possible)
-  function nearest(prefix, k, n) {
-    for (let d = 0; d <= WIN; d++) {
-      if (k - d >= 0 && has(prefix + (k - d))) return k - d
-      if (d && k + d < n && has(prefix + (k + d))) return k + d
+  let wanted = []
+  let decoding = 0
+  let shownKey = ''
+  function decodeNext() {
+    while (decoding < 2 && wanted.length) {
+      const [key, blob] = wanted.shift()
+      if (bmp.has(key)) continue
+      bmp.set(key, null)
+      decoding++
+      createImageBitmap(blob)
+        .then((b) => { if (bmp.has(key) && !bmp.get(key)) { bmp.set(key, b); lastKey = '' } else b.close() })
+        .catch(() => bmp.delete(key))
+        .finally(() => { decoding--; decodeNext() })
     }
-    return -1
+  }
+  // l'image décodée la plus proche de k, où qu'elle soit
+  function nearest(prefix, k) {
+    let best = -1, bd = Infinity
+    for (const [key, b] of bmp) {
+      if (!b || key[0] !== prefix) continue
+      const j = +key.slice(1), d = Math.abs(j - k) + (j > k ? 0.5 : 0)
+      if (d < bd) { bd = d; best = j }
+    }
+    return best
   }
   function keepAround(di, ai) {
     const at = di + '/' + ai
     if (at === winAt) return
     winAt = at
-    const keep = new Set()
-    // plus d'images devant (sens de la plongée) que derrière
-    for (let k = di - Math.ceil(WIN / 2); k <= di + WIN; k++) if (k >= 0 && k < COUNT) { keep.add('d' + k); want('d' + k, frames[k]) }
-    if (arc && ai >= 0) for (let k = ai - WIN; k <= ai + WIN; k++) if (k >= 0 && k < arc.count) { keep.add('a' + k); want('a' + k, arcImgs[k]) }
-    for (const [k, b] of bmp) if (!keep.has(k)) { if (b) b.close(); bmp.delete(k) }
+    const keep = new Map()
+    // plus d'images devant (sens de la plongée) que derrière ; les plus proches décodées d'abord
+    for (let k = di - Math.ceil(WIN / 2); k <= di + WIN; k++) if (k >= 0 && k < COUNT && frames[k]) keep.set('d' + k, [Math.abs(k - di), frames[k]])
+    if (arc && ai >= 0) for (let k = ai - WIN; k <= ai + WIN; k++) if (k >= 0 && k < arc.count && arcImgs[k]) keep.set('a' + k, [Math.abs(k - ai), arcImgs[k]])
+    wanted = [...keep].filter(([k]) => !bmp.has(k)).sort((a, b) => a[1][0] - b[1][0]).map(([k, v]) => [k, v[1]])
+    // on garde l'image affichée tant que la nouvelle n'est pas prête
+    for (const [k, b] of bmp) if (!keep.has(k) && k !== shownKey) { if (b) b.close(); bmp.delete(k) }
+    decodeNext()
   }
 
   function resize() {
@@ -138,6 +152,15 @@ export function startPlayer(el, { base, onProgress, onReady }) {
   let last = performance.now()
   function frame(now) {
     if (stopped) return
+    raf = requestAnimationFrame(frame)
+    try {
+      draw(now)
+    } catch (e) {
+      lastKey = ''
+      console.error(e)
+    }
+  }
+  function draw(now) {
     const dt = Math.min(0.05, (now - last) / 1000)
     last = now
     p += (pTarget - p) * (1 - Math.exp(-dt * 8))
@@ -148,8 +171,6 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     const z = seg(p, 0.04, 0.9)
     const zf = z * (COUNT - 1)
     const f0 = Math.floor(zf), f1 = Math.min(f0 + 1, COUNT - 1), zfrac = zf - f0
-    const i = nearest('d', f0, COUNT)
-    const img = i >= 0 ? bmp.get('d' + i) : null
     const amt = 1 - z
     const idle = reduce ? [0, 0] : [Math.sin(t * 0.31) * 0.3 + Math.sin(t * 0.13) * 0.15, Math.sin(t * 0.23 + 1.3) * 0.3]
     // avec l'arc, le geste horizontal tourne la vraie caméra ; sinon simple glissement de quelques pixels
@@ -160,14 +181,19 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     const s = Math.max(vw / set.W, vh / set.H) * (1.025 + 0.05 * (1 - intro))
     const ox = (vw - set.W * s) / 2 - shift[0], oy = (vh - set.H * s) / 2 - shift[1]
     const a0 = Math.floor(arcX), a1 = Math.min(a0 + 1, arc ? arc.count - 1 : 0), af = arcX - a0
-    const an = arc ? nearest('a', af >= 0.5 ? a1 : a0, arc.count) : -1
-    const onArc = arc && z === 0 && an >= 0
+    // fenêtre d'images décodées mise à jour AVANT de choisir quoi dessiner :
+    // sinon on pouvait dessiner une image qui venait d'être libérée, et l'animation s'arrêtait
     keepAround(f0, arc && arcAmt > 0 ? a0 : -1)
+    const i = nearest('d', f0)
+    const img = i >= 0 ? bmp.get('d' + i) : null
+    const an = arc ? nearest('a', af >= 0.5 ? a1 : a0) : -1
+    const onArc = arc && z === 0 && an >= 0
     const key = [onArc ? 'a' + an : 'd' + zf.toFixed(2) + i, ox.toFixed(1), oy.toFixed(1), s.toFixed(4)].join()
     if (key !== lastKey && (onArc || img)) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       if (onArc) {
         ctx.drawImage(bmp.get('a' + an), ox, oy, set.W * s, set.H * s)
+        shownKey = 'a' + an
         quad = arc.corners[an]
       } else {
         // l'image affichée avance d'un micro-zoom centré sur l'écran, calé pour que l'écran soit
@@ -186,6 +212,7 @@ export function startPlayer(el, { base, onProgress, onReady }) {
         }
         const tx = ct[0] - c0[0] * kz, ty = ct[1] - c0[1] * kz
         ctx.drawImage(img, ox + tx * s, oy + ty * s, set.W * s * kz, set.H * s * kz)
+        shownKey = 'd' + i
         quad = kz === 1 ? q0 : q0.map(([x, y]) => [tx + x * kz, ty + y * kz])
       }
       lastKey = key
@@ -216,7 +243,6 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     el.hintScroll.style.opacity = ui
     if (!dragged) el.hintDrag.style.opacity = ui * (introDone ? 1 : 0)
     el.skip.style.visibility = fills ? 'hidden' : 'visible'
-    raf = requestAnimationFrame(frame)
   }
 
   // téléchargement en file d'attente, dans l'ordre demandé, quelques fichiers à la fois :
