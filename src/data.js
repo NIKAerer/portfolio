@@ -5,11 +5,16 @@ export const profile = {
   firstName: 'Nikoloz',
   lastName: 'Shakhnazarov',
   role: 'Développeur web junior',
-  location: 'Île-de-France · télétravail possible',
+  location: 'Choisy-le-Roi (94) · télétravail possible',
   email: 'nikoloz.shakhnazarov@gmail.com',
   github: 'https://github.com/NIKAerer',
   lede:
-    "Diplômé d'un BTS SIO option SLAM, je construis des applications web de bout en bout : API Symfony, interface React, mise en ligne. Je cherche un premier poste de développeur web.",
+    "Diplômé d'un BTS SIO, je développe des applications web avec Symfony côté serveur et React côté interface. Je cherche mon premier poste de développeur en Île-de-France ou en télétravail.",
+  // texte de la section « À propos », un paragraphe par ligne
+  about: [
+    "J'ai commencé l'informatique par une licence à Rouen, puis j'ai choisi le BTS SIO pour aller vers le développement concret. Je l'ai préparé à distance avec le CNED, ce qui m'a appris à avancer seul et à m'organiser.",
+    'Je parle français et russe depuis l’enfance, et anglais (B2).',
+  ],
 }
 
 export const projects = [
@@ -39,11 +44,16 @@ export const experience = [
   {
     org: 'Unicancer',
     place: 'Paris',
+    detail: 'Fédération nationale des centres de lutte contre le cancer',
     role: 'Développeur web',
-    periods: ['2024 – 2025 · stage puis deux CDD'],
+    periods: ['Stage juillet 2024', 'CDD oct. – déc. 2024', 'CDD oct. – déc. 2025'],
+    intro:
+      "J'ai rejoint l'équipe web d'Unicancer en stage, puis j'y suis revenu deux fois en CDD. Je traitais les tickets GitLab en autonomie et je développais de nouvelles fonctionnalités pour les sites de l'organisation.",
     points: [
-      'Évolutions et corrections sur les sites de l’organisation, en autonomie',
-      'Questionnaires en ligne et pages créés avec les services métier',
+      'Pages, formulaires et éléments interactifs en PHP / Symfony et React',
+      'Questionnaires en ligne créés avec SurveyJS',
+      'Corrections de bugs et modifications visuelles à partir des tickets GitLab',
+      'Recueil des besoins auprès des services internes, jusqu’à la mise en ligne',
     ],
   },
 ]
@@ -54,9 +64,10 @@ export const education = [
   { years: '2021', title: 'Baccalauréat général', where: 'Spécialités Mathématiques et NSI · Lycée Marceau, Chartres' },
 ]
 
+// chaque compétence est reliée à l'endroit où elle a servi
 export const skills = [
-  { group: 'Back-end', items: ['PHP', 'Symfony', 'SQL / MySQL', 'API Platform', 'JWT'] },
-  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS', 'Tailwind', 'Three.js'] },
-  { group: 'Autres', items: ['Python', 'C', 'Git', 'Blender', 'Photoshop'] },
-  { group: 'Langues', items: ['Français (natif)', 'Russe (natif)', 'Anglais (B2)'] },
+  { group: 'Back-end', items: ['PHP', 'Symfony', 'SQL / MySQL'], where: 'Unicancer, projets perso' },
+  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS'], where: 'Unicancer, projets perso' },
+  { group: 'Outils', items: ['Git', 'GitLab', 'SurveyJS'], where: 'Unicancer' },
+  { group: 'Aussi', items: ['Python', 'C', 'C#', 'Blender'], where: 'Formation, ce site' },
 ]

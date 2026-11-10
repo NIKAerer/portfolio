@@ -12,12 +12,12 @@ export default function ScreenPage({ interactive }) {
         </span>
         <nav aria-label="Sections">
           <a href="#projets" tabIndex={tab}>Projets</a>
-          <a href="#parcours" tabIndex={tab}>Parcours</a>
+          <a href="#experience" tabIndex={tab}>Expérience</a>
           <a href="#contact" tabIndex={tab}>Contact</a>
         </nav>
       </div>
       <div className="hero-txt">
-        <span className="eyebrow">{profile.role} · Symfony & React</span>
+        <span className="eyebrow">{profile.role} · PHP / Symfony & React</span>
         <h1>
           {profile.firstName} <em>{profile.lastName}</em>
         </h1>
@@ -26,7 +26,7 @@ export default function ScreenPage({ interactive }) {
           <a className="btn primary" href="#projets" tabIndex={tab}>Voir mes projets</a>
           <a className="btn" href="#contact" tabIndex={tab}>Me contacter</a>
         </div>
-        <span className="status">Ouvert aux opportunités · {profile.location}</span>
+        <span className="status">Disponible · {profile.location}</span>
       </div>
     </div>
   )

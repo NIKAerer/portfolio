@@ -1,4 +1,4 @@
-import { education, experience, profile, projects, skills } from '../data'
+import { experience, profile, projects, skills } from '../data'
 
 const YEAR = new Date().getFullYear()
 
@@ -29,47 +29,43 @@ export function Projects() {
               <span key={s}>{i > 0 && <i>/</i>}{s}</span>
             ))}
           </div>
-          <div className="links">
-            {p.demo && <a href={p.demo} target="_blank" rel="noopener">Démo ↗</a>}
-            {p.code ? <a href={p.code} target="_blank" rel="noopener">Code ↗</a> : <span>Code bientôt public</span>}
-          </div>
+          {(p.demo || p.code) && (
+            <div className="links">
+              {p.demo && <a href={p.demo} target="_blank" rel="noopener">Démo ↗</a>}
+              {p.code && <a href={p.code} target="_blank" rel="noopener">Code ↗</a>}
+            </div>
+          )}
         </article>
       ))}
-      <article className="ed-row soon">
-        <h3>Projet 3</h3>
-        <span className="st">○ Bientôt</span>
-        <p>Un outil métier, pensé dès le départ avec tests, intégration continue et démo en ligne.</p>
-      </article>
     </section>
   )
 }
 
-export function Parcours() {
+export function Experience() {
   return (
-    <section id="parcours">
-      <Label left="Parcours" right="Paris · Rouen" />
-      <div className="ed-cols">
-        <div className="ed-col">
-          <h4>Expérience</h4>
-          {experience.map((x) => (
-            <div className="ed-item" key={x.org}>
-              <span className="when">{x.periods.join(' · ')}</span>
-              <strong>{x.org}</strong>
-              <p className="role">{x.role} · {x.place}</p>
-              <ul>{x.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
-            </div>
-          ))}
-        </div>
-        <div className="ed-col">
-          <h4>Formation</h4>
-          {education.map((e) => (
-            <div className="ed-item" key={e.title}>
-              <span className="when">{e.years}{e.note ? ` · ${e.note}` : ''}</span>
-              <strong>{e.title}</strong>
-              <p className="role">{e.where}</p>
-            </div>
-          ))}
-        </div>
+    <section id="experience">
+      <Label left="Expérience" right="2024 – 2025" />
+      {experience.map((x) => (
+        <article className="ed-row ed-exp" key={x.org}>
+          <h3>{x.org}</h3>
+          <span className="st">{x.role} · {x.place}</span>
+          <p className="when">{x.periods.join(' · ')}</p>
+          <p>{x.intro}</p>
+          <ul className="features">
+            {x.points.map((pt) => <li key={pt}>{pt}</li>)}
+          </ul>
+        </article>
+      ))}
+    </section>
+  )
+}
+
+export function About() {
+  return (
+    <section id="apropos">
+      <Label left="À propos" />
+      <div className="ed-about">
+        {profile.about.map((t) => <p key={t}>{t}</p>)}
       </div>
     </section>
   )
@@ -83,7 +79,10 @@ export function Skills() {
         {skills.map((g) => (
           <div key={g.group}>
             <dt>{g.group}</dt>
-            <dd>{g.items.join(' · ')}</dd>
+            <dd>
+              {g.items.join(' · ')}
+              <span className="where">{g.where}</span>
+            </dd>
           </div>
         ))}
       </dl>
@@ -95,6 +94,7 @@ export function Contact() {
   return (
     <section id="contact" className="ed-cta">
       <Label left="Contact" right="Île-de-France · télétravail" />
+      <p className="ed-pitch">Un poste de développeur web junior à pourvoir ?</p>
       <a className="big" href={`mailto:${profile.email}`}>Écris-moi <span aria-hidden="true">→</span></a>
       <p className="addr">
         <span>{profile.email}</span>
