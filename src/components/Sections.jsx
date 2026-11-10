@@ -1,7 +1,5 @@
 import { education, experience, profile, projects, skills } from '../data'
 
-const YEAR = new Date().getFullYear()
-
 // Style éditorial : la typo porte l'identité, une ligne par élément, des filets fins entre les lignes.
 function Label({ left, right }) {
   return (
@@ -106,25 +104,13 @@ export function Skills() {
 export function Contact() {
   return (
     <section id="contact" className="ed-cta">
-      <Label left="Contact" right="Île-de-France · télétravail" />
-      <p className="ed-pitch">Un poste de développeur web junior à pourvoir ?</p>
-      <a className="big" href={`mailto:${profile.email}`}>Écris-moi <span aria-hidden="true">→</span></a>
+      <Label left="Contact" />
+      <a className="big" href={`mailto:${profile.email}`}>Contactez-moi <span aria-hidden="true">→</span></a>
       <p className="addr">
         <span>{profile.email}</span>
         <a href={profile.github} target="_blank" rel="noopener">github.com/NIKAerer ↗</a>
+        <a href={profile.cv} target="_blank" rel="noopener">CV (PDF) ↗</a>
       </p>
     </section>
-  )
-}
-
-export function Footer() {
-  return (
-    <footer>
-      <span>© {YEAR} {profile.name}</span>
-      <span>Bureau modélisé et rendu dans Blender · <a href="#credits">Crédits 3D</a></span>
-      <p id="credits" className="credits">
-        Textures et décors : Poly Haven (CC0). Certains objets du bureau proviennent de Sketchfab sous licence CC BY : leurs auteurs seront crédités ici.
-      </p>
-    </footer>
   )
 }

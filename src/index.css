@@ -139,7 +139,7 @@ section { scroll-margin-top: 24px; }
 .ed-pitch + .big { margin-top: 12px; }
 
 .ed-cta { padding-bottom: 72px; }
-.ed-cta .big { display: inline-block; margin-top: 40px; font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(56px, 13vw, 180px); line-height: .86; text-decoration: none; transition: color .3s; }
+.ed-cta .big { display: inline-block; margin-top: 40px; font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(44px, 10vw, 150px); line-height: .86; text-decoration: none; transition: color .3s; }
 .ed-cta .big span { display: inline-block; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
 .ed-cta .big:hover { color: var(--led); }
 .ed-cta .big:hover span { transform: translateX(16px); }

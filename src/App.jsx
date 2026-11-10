@@ -1,5 +1,5 @@
 import Hero from './components/Hero'
-import { About, Contact, Experience, Footer, Projects, Skills } from './components/Sections'
+import { About, Contact, Experience, Projects, Skills } from './components/Sections'
 
 export default function App() {
   return (
@@ -12,7 +12,6 @@ export default function App() {
         <Skills />
         <Contact />
       </main>
-      <Footer />
     </>
   )
 }

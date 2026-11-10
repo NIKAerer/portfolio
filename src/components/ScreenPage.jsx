@@ -24,9 +24,9 @@ export default function ScreenPage({ interactive }) {
         <p className="lede">{profile.lede}</p>
         <div className="ctas">
           <a className="btn primary" href="#projets" tabIndex={tab}>Voir mes projets</a>
-          <a className="btn" href="#contact" tabIndex={tab}>Me contacter</a>
+          <a className="btn" href={profile.cv} target="_blank" rel="noopener" tabIndex={tab}>Mon CV (PDF)</a>
         </div>
-        <span className="status">Disponible · {profile.location}</span>
+        <span className="status">Disponible</span>
       </div>
     </div>
   )
