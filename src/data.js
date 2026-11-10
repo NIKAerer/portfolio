@@ -32,6 +32,7 @@ export const projects = [
     about: [
       'NIXUS remplace le client habituel : l’accueil avec le classement de tes amis, ton profil et ton historique, la collection de tes champions avec tri et filtres, la draft avec les winrates contre les adversaires, et le chat d’équipe.',
       'Il se met à jour tout seul. Chaque version est un installateur signé, et un bouton « Rechercher une mise à jour » suffit : plus de vingt-cinq versions ont été publiées en une semaine, début novembre 2026.',
+      'Conçu et dirigé par moi, avec Claude Code pour le développement.',
     ],
     code: null,
     codeNote: 'Le code source est privé.',
@@ -49,7 +50,7 @@ export const projects = [
     stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
       'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
-      'Le jeu de base est PokéSurvivor de JPTER78 (licence non commerciale) : j’en suis reparti pour construire tout le mode Aventure.',
+      'Le jeu de base est PokéSurvivor de JPTER78 (licence non commerciale) : j’en suis reparti pour le mode Aventure, que j’ai conçu et dirigé avec Claude Code.',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
