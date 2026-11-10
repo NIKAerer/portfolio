@@ -27,7 +27,6 @@ export function Projects() {
               <span key={s}>{i > 0 && <i>/</i>}{s}</span>
             ))}
           </div>
-          {p.shots[0] && <img className="cover" src={p.shots[0].src} alt="" decoding="async" />}
           <span className="more">Voir le projet →</span>
         </a>
       ))}
