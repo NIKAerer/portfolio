@@ -22,7 +22,6 @@ const READY_ARC = 8
 const clamp = (x, a, b) => Math.min(b, Math.max(a, x))
 const seg = (x, a, b) => clamp((x - a) / (b - a), 0, 1)
 const ease = (x) => 1 - Math.pow(1 - x, 3)
-const ok = (im) => !!(im && im.complete && im.naturalWidth)
 
 function homography(w, h, q) {
   const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q
@@ -53,7 +52,7 @@ function normArc(raw, set, base) {
 export function startPlayer(el, { base, onProgress, onReady }) {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
   const ctx = el.canvas.getContext('2d')
-  const WIN = matchMedia('(pointer: coarse)').matches ? 5 : 8
+  const WIN = matchMedia('(pointer: coarse)').matches ? 4 : 6
   const off = []
   const on = (target, type, fn, o) => { target.addEventListener(type, fn, o); off.push(() => target.removeEventListener(type, fn, o)) }
 
@@ -65,23 +64,34 @@ export function startPlayer(el, { base, onProgress, onReady }) {
   let arc = null, arcImgs = [], raf = 0, stopped = false, running = false
   let loaded = 0, total = 1, ready = false
 
-  // images déjà décodées autour de la position courante : le dessin ne décode plus rien
+  // Les fichiers sont gardés compressés (Blob) et seules les images autour de la position
+  // courante sont décodées, hors du fil principal (createImageBitmap sur un Blob).
+  // Le dessin n'utilise que des images déjà décodées : jamais de décodage pendant le scroll.
   const bmp = new Map()
   let winAt = ''
-  function want(key, im) {
-    if (bmp.has(key) || !ok(im) || !self.createImageBitmap) return
+  function want(key, blob) {
+    if (bmp.has(key) || !blob) return
     bmp.set(key, null)
-    createImageBitmap(im)
+    createImageBitmap(blob)
       .then((b) => { if (bmp.has(key) && !bmp.get(key)) { bmp.set(key, b); lastKey = '' } else b.close() })
       .catch(() => bmp.delete(key))
   }
-  const src = (key, im) => bmp.get(key) || (ok(im) ? im : null)
+  const has = (key) => !!bmp.get(key)
+  // l'image décodée la plus proche de k (en restant du côté déjà vu si possible)
+  function nearest(prefix, k, n) {
+    for (let d = 0; d <= WIN; d++) {
+      if (k - d >= 0 && has(prefix + (k - d))) return k - d
+      if (d && k + d < n && has(prefix + (k + d))) return k + d
+    }
+    return -1
+  }
   function keepAround(di, ai) {
     const at = di + '/' + ai
     if (at === winAt) return
     winAt = at
     const keep = new Set()
-    for (let k = di - WIN; k <= di + WIN; k++) if (k >= 0 && k < COUNT) { keep.add('d' + k); want('d' + k, frames[k]) }
+    // plus d'images devant (sens de la plongée) que derrière
+    for (let k = di - Math.ceil(WIN / 2); k <= di + WIN; k++) if (k >= 0 && k < COUNT) { keep.add('d' + k); want('d' + k, frames[k]) }
     if (arc && ai >= 0) for (let k = ai - WIN; k <= ai + WIN; k++) if (k >= 0 && k < arc.count) { keep.add('a' + k); want('a' + k, arcImgs[k]) }
     for (const [k, b] of bmp) if (!keep.has(k)) { if (b) b.close(); bmp.delete(k) }
   }
@@ -137,10 +147,9 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     const intro = reduce ? 1 : ease(clamp(t / 2.6, 0, 1))
     const z = seg(p, 0.04, 0.9)
     const zf = z * (COUNT - 1)
-    let i = Math.floor(zf)
-    const i1 = Math.min(i + 1, COUNT - 1), zfrac = zf - i
-    while (i > 0 && !ok(frames[i])) i--
-    const img = src('d' + i, frames[i])
+    const f0 = Math.floor(zf), f1 = Math.min(f0 + 1, COUNT - 1), zfrac = zf - f0
+    const i = nearest('d', f0, COUNT)
+    const img = i >= 0 ? bmp.get('d' + i) : null
     const amt = 1 - z
     const idle = reduce ? [0, 0] : [Math.sin(t * 0.31) * 0.3 + Math.sin(t * 0.13) * 0.15, Math.sin(t * 0.23 + 1.3) * 0.3]
     // avec l'arc, le geste horizontal tourne la vraie caméra ; sinon simple glissement de quelques pixels
@@ -151,34 +160,36 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     const s = Math.max(vw / set.W, vh / set.H) * (1.025 + 0.05 * (1 - intro))
     const ox = (vw - set.W * s) / 2 - shift[0], oy = (vh - set.H * s) / 2 - shift[1]
     const a0 = Math.floor(arcX), a1 = Math.min(a0 + 1, arc ? arc.count - 1 : 0), af = arcX - a0
-    const onArc = arc && z === 0 && ok(arcImgs[a0])
-    keepAround(i, arc && arcAmt > 0 ? a0 : -1)
-    const key = [onArc ? 'a' + arcX.toFixed(2) : 'd' + zf.toFixed(2) + i, ox.toFixed(1), oy.toFixed(1), s.toFixed(4)].join()
+    const an = arc ? nearest('a', af >= 0.5 ? a1 : a0, arc.count) : -1
+    const onArc = arc && z === 0 && an >= 0
+    keepAround(f0, arc && arcAmt > 0 ? a0 : -1)
+    const key = [onArc ? 'a' + an : 'd' + zf.toFixed(2) + i, ox.toFixed(1), oy.toFixed(1), s.toFixed(4)].join()
     if (key !== lastKey && (onArc || img)) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       if (onArc) {
-        const an = af >= 0.5 && ok(arcImgs[a1]) ? a1 : a0
-        ctx.drawImage(src('a' + an, arcImgs[an]), ox, oy, set.W * s, set.H * s)
+        ctx.drawImage(bmp.get('a' + an), ox, oy, set.W * s, set.H * s)
         quad = arc.corners[an]
       } else {
-        // entre deux vraies images, l'image courante avance d'un micro-zoom centré sur l'écran,
-        // calé pour que l'écran arrive exactement là où il est dans l'image suivante
+        // l'image affichée avance d'un micro-zoom centré sur l'écran, calé pour que l'écran soit
+        // exactement là où il serait à la position de scroll : entre deux vraies images, ou quand
+        // l'image exacte n'est pas encore décodée et qu'on montre la plus proche
         const q0 = corners[i]
         let kz = 1, c0 = [0, 0], ct = [0, 0]
-        if (i === Math.floor(zf) && zfrac > 0 && i1 > i) {
-          const q1 = corners[i1]
+        if (i !== f0 || (zfrac > 0 && f1 > f0)) {
           const size = (q) => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]) + Math.hypot(q[2][0] - q[3][0], q[2][1] - q[3][1])
           const mid = (q) => [(q[0][0] + q[1][0] + q[2][0] + q[3][0]) / 4, (q[0][1] + q[1][1] + q[2][1] + q[3][1]) / 4]
-          kz = Math.pow(size(q1) / size(q0), zfrac)
+          const qa = corners[f0], qb = corners[f1]
+          kz = (size(qa) * Math.pow(size(qb) / size(qa), zfrac)) / size(q0)
           c0 = mid(q0)
-          const c1 = mid(q1)
-          ct = [c0[0] + (c1[0] - c0[0]) * zfrac, c0[1] + (c1[1] - c0[1]) * zfrac]
+          const ca = mid(qa), cb = mid(qb)
+          ct = [ca[0] + (cb[0] - ca[0]) * zfrac, ca[1] + (cb[1] - ca[1]) * zfrac]
         }
         const tx = ct[0] - c0[0] * kz, ty = ct[1] - c0[1] * kz
         ctx.drawImage(img, ox + tx * s, oy + ty * s, set.W * s * kz, set.H * s * kz)
         quad = kz === 1 ? q0 : q0.map(([x, y]) => [tx + x * kz, ty + y * kz])
       }
       lastKey = key
+      reveal()
     }
     if (quad) el.screen.style.transform = 'matrix3d(' + homography(PAGE_W, PAGE_H, quad).join(',') + ')'
     if (set.poster) {
@@ -190,36 +201,55 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     el.screenLayer.style.transform = el.posterLayer.style.transform = `translate(${ox}px, ${oy}px) scale(${s})`
     el.posterLayer.style.opacity = 1 - seg(p, 0, 0.05)
 
-    el.screenIn.style.opacity = 1 - seg(p, 0.86, 0.93)
-    el.full.style.opacity = seg(p, 0.9, 0.95)
-    const f = seg(p, 0.93, 0.99)
-    el.full.style.setProperty('--c', f)
-    el.full.classList.toggle('live', f > 0.98)
-    el.full.inert = f <= 0.98
+    // passage à la vraie page d'un coup, sans fondu, dès que l'écran du PC remplit la vue
+    // (un fondu entre les deux pages laissait un écran gris vide pendant un moment)
+    let fills = z >= 1
+    if (quad && !fills) {
+      const xs = quad.map((c) => ox + c[0] * s)
+      fills = Math.min(...xs) <= 0 && Math.max(...xs) >= vw
+    }
+    el.full.style.opacity = fills ? 1 : 0
+    el.full.style.setProperty('--c', 1)
+    el.full.classList.toggle('live', fills)
+    el.full.inert = !fills
     const ui = 1 - seg(p, 0.02, 0.1)
     el.hintScroll.style.opacity = ui
     if (!dragged) el.hintDrag.style.opacity = ui * (introDone ? 1 : 0)
-    el.skip.style.opacity = 1 - seg(p, 0.9, 0.98)
-    el.skip.style.visibility = p > 0.98 ? 'hidden' : 'visible'
+    el.skip.style.visibility = fills ? 'hidden' : 'visible'
     raf = requestAnimationFrame(frame)
   }
 
-  function loadImage(url, isEssential) {
-    const im = new Image()
-    im.decoding = 'async'
-    const done = () => {
-      loaded++
-      if (isEssential) essentialLeft--
-      winAt = ''
-      onProgress?.(loaded / total)
-      if (!ready && essentialLeft <= 0) { ready = true; onReady?.() }
+  // téléchargement en file d'attente, dans l'ordre demandé, quelques fichiers à la fois :
+  // les images arrivent dans l'ordre où on les verra au lieu de toutes se partager le débit
+  const queue = []
+  let active = 0
+  let lastProgress = 0
+  function pump() {
+    while (active < 6 && queue.length && !stopped) {
+      const { url, list, k, isEssential, g } = queue.shift()
+      active++
+      fetch(url)
+        .then((r) => (r.ok ? r.blob() : null))
+        .catch(() => null)
+        .then((blob) => {
+          active--
+          if (stopped || g !== gen) return pump()
+          list[k] = blob
+          loaded++
+          if (isEssential) essentialLeft--
+          winAt = ''
+          // la barre de chargement n'a besoin que de quelques mises à jour
+          if (!ready || loaded === total || loaded - lastProgress >= 10) { lastProgress = loaded; onProgress?.(loaded / total) }
+          if (!ready && essentialLeft <= 0) { ready = true; onReady?.() }
+          pump()
+        })
     }
-    im.onload = done
-    im.onerror = done
-    im.src = url
-    return im
+  }
+  function loadImage(list, k, url, isEssential) {
+    queue.push({ url, list, k, isEssential, g: gen })
   }
   let essentialLeft = 0
+  let gen = 0
 
   let available = ['wide']
   const sceneFor = () => (innerWidth / innerHeight < 0.8 && available.includes('portrait') ? 'portrait' : 'wide')
@@ -246,23 +276,34 @@ export function startPlayer(el, { base, onProgress, onReady }) {
     essentialLeft = Math.min(READY_DIVE, COUNT) + Math.min(READY_ARC * 2 + 1, arcFirst.length)
     frames = new Array(COUNT)
     arcImgs = arc ? new Array(arc.count) : []
-    frames[0] = loadImage(files[0], true)
-    frames[0].decode().catch(() => {}).then(() => {
-      if (stopped) return
-      arcFirst.forEach((k, n) => { arcImgs[k] = loadImage(arc.files[k], n <= READY_ARC * 2) })
-      for (let k = 1; k < COUNT; k++) frames[k] = loadImage(files[k], k < READY_DIVE)
-      resize()
-      readScroll()
-      lastKey = ''
-      if (!running) {
-        running = true
-        t0 = performance.now()
-        el.veil.style.opacity = 0
-        setTimeout(() => el.screen.classList.add('on'), reduce ? 0 : 1500)
-        setTimeout(() => { introDone = true }, reduce ? 0 : 2600)
-        raf = requestAnimationFrame(frame)
-      }
-    })
+    queue.length = 0
+    gen++
+    // d'abord l'arrivée (centre de l'arc, début de la plongée), puis le reste dans l'ordre de la plongée
+    loadImage(frames, 0, files[0], true)
+    arcFirst.slice(0, READY_ARC * 2 + 1).forEach((k) => loadImage(arcImgs, k, arc.files[k], true))
+    for (let k = 1; k < COUNT; k++) {
+      loadImage(frames, k, files[k], k < READY_DIVE)
+      const n = READY_ARC * 2 + k
+      if (arc && n < arcFirst.length) loadImage(arcImgs, arcFirst[n], arc.files[arcFirst[n]], false)
+    }
+    pump()
+    resize()
+    readScroll()
+    lastKey = ''
+    if (!running) {
+      running = true
+      raf = requestAnimationFrame(frame)
+    }
+  }
+  // le voile se lève sur la première image vraiment dessinée
+  let shown = false
+  function reveal() {
+    if (shown) return
+    shown = true
+    t0 = performance.now()
+    el.veil.style.opacity = 0
+    setTimeout(() => el.screen.classList.add('on'), reduce ? 0 : 1500)
+    setTimeout(() => { introDone = true }, reduce ? 0 : 2600)
   }
 
   fetch(base + 'corners.json')
