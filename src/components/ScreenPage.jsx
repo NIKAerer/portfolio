@@ -17,11 +17,10 @@ export default function ScreenPage({ interactive }) {
         </nav>
       </div>
       <div className="hero-txt">
-        <span className="eyebrow">{profile.role} · PHP / Symfony & React</span>
+        <span className="eyebrow">{profile.role}</span>
         <h1>
           {profile.firstName} <em>{profile.lastName}</em>
         </h1>
-        <p className="lede">{profile.lede}</p>
         <div className="ctas">
           <a className="btn primary" href="#projets" tabIndex={tab}>Voir mes projets</a>
           <a className="btn" href={profile.cv} target="_blank" rel="noopener" tabIndex={tab}>Mon CV (PDF)</a>
