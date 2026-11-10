@@ -32,7 +32,6 @@ export const projects = [
     about: [
       'NIXUS remplace le client habituel : l’accueil avec le classement de tes amis, ton profil et ton historique, la collection de tes champions avec tri et filtres, la draft avec les winrates contre les adversaires, et le chat d’équipe.',
       'Il se met à jour tout seul. Chaque version est un installateur signé, et un bouton « Rechercher une mise à jour » suffit : plus de vingt-cinq versions ont été publiées en une semaine, début novembre 2026.',
-      'Conçu et dirigé par moi, avec Claude Code pour le développement.',
     ],
     code: null,
     codeNote: 'Le code source est privé.',
