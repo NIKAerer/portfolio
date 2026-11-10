@@ -15,8 +15,6 @@ export const profile = {
     "Je code depuis le lycée, où j'ai choisi la spécialité NSI. Après deux années de licence d'informatique à Rouen, j'ai voulu une formation plus tournée vers le concret : un BTS SIO option développement, préparé à distance avec le CNED en parallèle de mes missions en entreprise.",
     "En entreprise, j'ai appris ce qu'on attend d'un développeur dans une équipe : prendre un ticket, comprendre le besoin de la personne qui l'a ouvert, livrer une correction propre et versionnée. C'est la partie du métier que je préfère : partir d'un vrai besoin et voir le résultat servir.",
   ],
-  now: 'En ce moment : je termine deux projets personnels en Symfony et React, et je cherche un poste de développeur web junior.',
-  languages: 'Français et russe (langues maternelles) · Anglais (B2)',
 }
 
 export const projects = [

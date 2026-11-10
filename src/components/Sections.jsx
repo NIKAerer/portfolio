@@ -75,8 +75,6 @@ export function About() {
       <Label left="À propos" />
       <div className="ed-about">
         {profile.about.map((t) => <p key={t}>{t}</p>)}
-        <p className="now">{profile.now}</p>
-        <p className="langs">{profile.languages}</p>
       </div>
     </section>
   )
