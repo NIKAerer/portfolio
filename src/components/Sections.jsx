@@ -88,10 +88,7 @@ export function Skills() {
         {skills.map((g) => (
           <div key={g.group}>
             <dt>{g.group}</dt>
-            <dd>
-              {g.items.join(' · ')}
-              <span className="where">{g.where}</span>
-            </dd>
+            <dd>{g.items.join(' · ')}</dd>
           </div>
         ))}
       </dl>

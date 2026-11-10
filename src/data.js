@@ -63,9 +63,9 @@ export const education = [
   { when: '2021 – 2023', title: 'Licence Informatique', where: 'Université de Rouen', note: '2 années suivies' },
 ]
 
-// chaque compétence est reliée à l'endroit où elle a servi
 export const skills = [
-  { group: 'Back-end', items: ['PHP', 'Symfony', 'SQL / MySQL'], where: 'Unicancer, projets perso' },
-  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS'], where: 'Unicancer, projets perso' },
-  { group: 'Outils', items: ['Git', 'GitLab', 'SurveyJS'], where: 'Unicancer' },
+  { group: 'Back-end', items: ['PHP', 'Symfony', 'API Platform', 'API REST', 'JWT', 'SQL / MySQL'] },
+  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS', 'Tailwind', 'Three.js', 'Vite'] },
+  { group: 'Outils', items: ['Git', 'GitLab', 'GitHub Actions', 'SurveyJS', 'Blender'] },
+  { group: 'Langages', items: ['Python', 'C', 'C#'] },
 ]
