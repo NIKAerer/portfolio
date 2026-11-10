@@ -53,7 +53,7 @@ export const projects = [
     stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
       'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
-      'Le jeu de base est PokéSurvivor de JPTER78 (licence non commerciale) : j’en suis reparti pour le mode Aventure, que j’ai conçu et dirigé avec Claude Code.',
+      'Inspiré du jeu PokéSurvivor de JPTER78 (licence non commerciale), auquel j’ai ajouté le mode Aventure.',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
@@ -92,7 +92,7 @@ export const education = [
 
 export const skills = [
   { group: 'Back-end', items: ['PHP', 'Symfony', 'API Platform', 'API REST', 'JWT', 'SQL / MySQL'] },
-  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS', 'Tailwind', 'Three.js', 'Vite'] },
+  { group: 'Front-end', items: ['React', 'JavaScript', 'HTML / CSS', 'Tailwind', 'Vite'] },
   { group: 'Outils', items: ['Git', 'GitLab', 'GitHub Actions', 'SurveyJS', 'Blender'] },
   { group: 'Langages', items: ['Python', 'C', 'C#'] },
 ]
