@@ -17,26 +17,51 @@ export const profile = {
   ],
 }
 
+// Chaque projet a une page détaillée (#projet/<slug>). Les captures vont dans public/projets/ ;
+// tant que `shots` est vide, la page n'affiche pas de section captures.
 export const projects = [
   {
-    name: 'Discipline-Leveling',
+    slug: 'nixus',
+    name: 'NIXUS',
+    kind: 'Application de bureau · Windows',
+    status: 'En ligne',
     pitch:
-      'Les habitudes transformées en RPG : quêtes quotidiennes, montée de rang, dans l’esprit de Solo Leveling.',
-    features: ['Personnage et avatar', 'Quêtes et calcul de rang', 'Suivi des disciplines'],
-    stack: ['Symfony', 'API REST', 'JWT', 'React 19', 'Vite'],
-    status: 'En cours',
-    code: null, // lien GitHub quand le dépôt sera public
-    demo: null,
+      'Une application de bureau pour les joueurs de League of Legends : préparer la draft, suivre ses parties et se comparer à ses amis.',
+    features: ['Draft et statistiques', 'Classement entre amis', 'Chat d’équipe'],
+    stack: ['Tauri', 'Windows'],
+    about: [
+      'NIXUS accompagne une partie de League of Legends de la sélection des champions jusqu’au bilan : draft avec winrate contre les adversaires, historique des parties et de tes amis, classement Solo/Duo et Flex entre amis, chat d’équipe, collection de champions avec tri et filtres.',
+      'L’application se met à jour toute seule : chaque version est un installateur signé, publié avec un fichier de version que l’appli lit via le bouton « Rechercher une mise à jour ». Plus de vingt-cinq versions ont été publiées entre le 4 et le 9 novembre 2026.',
+    ],
+    mine: [
+      'Publication et mise à jour automatique : installateurs signés, fichier de version lu par l’application',
+    ],
+    code: null,
+    codeNote: 'Le code source est privé.',
+    links: [{ label: 'Versions publiées', href: 'https://github.com/NIKAerer/NIXUS' }],
+    shots: [],
   },
   {
-    name: 'PokeWeb',
+    slug: 'pokesurvivor',
+    name: 'PokéSurvivor',
+    kind: 'Jeu web · mode Aventure',
+    status: 'En ligne',
     pitch:
-      'Un jeu web d’aventure Pokémon : capturer, faire évoluer et combattre, avec tout le Pokédex en base.',
-    features: ['Connexion sécurisée (JWT)', 'Capture, évolution, combat', 'Pokéball en 3D'],
-    stack: ['Symfony', 'API Platform', 'React', 'Tailwind', 'Three.js'],
-    status: 'En cours',
-    code: null,
-    demo: null,
+      'Un jeu Pokémon jouable dans le navigateur, sur ordinateur comme sur téléphone. J’y ai développé le mode Aventure : on parcourt Kanto avec son équipe et on affronte les dresseurs au tour par tour.',
+    features: ['Carte de Kanto et combats au tour par tour', 'Équipe entraînée (IV et points d’effort)', 'Histoire en chapitres'],
+    stack: ['JavaScript', 'PWA', 'GitHub Actions'],
+    about: [
+      'PokéSurvivor est un fan game gratuit, qui marche dans le navigateur et hors ligne une fois installé sur le téléphone. Le jeu de base est celui de JPTER78 (licence non commerciale) : j’en suis reparti pour construire le mode Aventure.',
+      'Dans ce mode, le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent au tour par tour directement sur la carte. L’équipe a de vraies statistiques (IV et points d’effort), on peut réapprendre une attaque, utiliser des CT, acheter en boutique, et l’histoire avance par chapitres : Team Rocket, Sylphe SARL, Giovanni…',
+    ],
+    mine: [
+      'Le mode Aventure en entier : plus de 4 700 lignes de code et une cinquantaine de commits, de fin octobre au 3 novembre 2026',
+      'Le déploiement : chaque modification poussée republie le jeu automatiquement sur GitHub Pages',
+    ],
+    code: 'https://github.com/NIKAerer/pokesurvivor',
+    credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
+    links: [{ label: 'Jouer', href: 'https://nikaerer.github.io/pokesurvivor/' }],
+    shots: [],
   },
 ]
 

@@ -1,4 +1,5 @@
 import Hero from './components/Hero'
+import ProjectPage from './components/ProjectPage'
 import { About, Contact, Experience, Projects, Skills } from './components/Sections'
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
         <Skills />
         <Contact />
       </main>
+      <ProjectPage />
     </>
   )
 }

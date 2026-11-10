@@ -13,11 +13,11 @@ function Label({ left, right }) {
 export function Projects() {
   return (
     <section id="projets">
-      <Label left="Projets" right="2025 – 2026" />
+      <Label left="Projets" />
       {projects.map((p) => (
-        <article className="ed-row" key={p.name}>
+        <a className="ed-row" key={p.slug} href={`#projet/${p.slug}`}>
           <h3>{p.name}</h3>
-          <span className="st">● {p.status}</span>
+          <span className="st">{p.kind}</span>
           <p>{p.pitch}</p>
           <ul className="features">
             {p.features.map((f) => <li key={f}>{f}</li>)}
@@ -27,13 +27,8 @@ export function Projects() {
               <span key={s}>{i > 0 && <i>/</i>}{s}</span>
             ))}
           </div>
-          {(p.demo || p.code) && (
-            <div className="links">
-              {p.demo && <a href={p.demo} target="_blank" rel="noopener">Démo ↗</a>}
-              {p.code && <a href={p.code} target="_blank" rel="noopener">Code ↗</a>}
-            </div>
-          )}
-        </article>
+          <span className="more">Voir le projet →</span>
+        </a>
       ))}
     </section>
   )
