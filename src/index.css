@@ -161,3 +161,18 @@ footer a { color: var(--cendre); }
   .poster-glow, .poster-chevron, .hint-drag i::after, .hint-scroll b { animation: none; }
   .ed-row h3, .ed-cta .big span { transition: none; }
 }
+
+/* Expérience et formation : dates à gauche, contenu à droite */
+.ed-entry { display: grid; grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 8px 32px; padding-block: 28px; border-bottom: 1px solid var(--trait); }
+.ed-entry .when { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--cendre); padding-top: 8px; }
+.ed-entry h3 { margin: 0; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 3vw, 38px); line-height: 1; }
+.ed-entry .sub { margin: 6px 0 0; font-family: var(--mono); font-size: 12px; color: var(--led); }
+.ed-entry p { margin: 12px 0 0; color: var(--papier); font-size: 17px; line-height: 1.55; max-width: 60ch; }
+.ed-entry ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; color: var(--cendre); font-size: 15px; }
+.ed-entry li::before { content: "— "; color: var(--led); }
+.ed-entry .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.ed-entry .tags span { font-family: var(--mono); font-size: 12px; color: var(--papier); border: 1px solid var(--trait); border-radius: 999px; padding: 3px 10px; }
+.ed-about .now, .ed-about .langs { max-width: none !important; }
+.ed-about .now { font-family: var(--mono); font-size: 13px !important; color: var(--led) !important; line-height: 1.6 !important; }
+.ed-about .langs { font-family: var(--mono); font-size: 13px !important; color: var(--cendre) !important; }
+@media (max-width: 600px) { .ed-entry { grid-template-columns: minmax(0, 1fr); gap: 4px; } .ed-entry .when { padding-top: 0; } }

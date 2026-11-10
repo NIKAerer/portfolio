@@ -7,8 +7,8 @@ export default function App() {
       <Hero />
       <main>
         <Projects />
-        <Experience />
         <About />
+        <Experience />
         <Skills />
         <Contact />
       </main>

@@ -9,12 +9,15 @@ export const profile = {
   email: 'nikoloz.shakhnazarov@gmail.com',
   github: 'https://github.com/NIKAerer',
   lede:
-    "Diplômé d'un BTS SIO, je développe des applications web avec Symfony côté serveur et React côté interface. Je cherche mon premier poste de développeur en Île-de-France ou en télétravail.",
-  // texte de la section « À propos », un paragraphe par ligne
+    "Je construis des applications web de bout en bout : une API Symfony côté serveur, une interface React côté utilisateur. Je cherche mon premier poste de développeur en Île-de-France ou en télétravail.",
+  // section « À propos » : qui je suis, comment je travaille, ce que je fais en ce moment
   about: [
-    "J'ai commencé l'informatique par une licence à Rouen, puis j'ai choisi le BTS SIO pour aller vers le développement concret. Je l'ai préparé à distance avec le CNED, ce qui m'a appris à avancer seul et à m'organiser.",
-    'Je parle français et russe depuis l’enfance, et anglais (B2).',
+    "Je code depuis le lycée, où j'ai choisi la spécialité NSI. Après deux années de licence d'informatique à Rouen, j'ai voulu une formation plus tournée vers le concret : un BTS SIO option développement, préparé à distance avec le CNED en parallèle de mes missions en entreprise.",
+    "En entreprise, j'ai appris ce qu'on attend d'un développeur dans une équipe : prendre un ticket, comprendre le besoin de la personne qui l'a ouvert, livrer une correction propre et versionnée. C'est la partie du métier que je préfère : partir d'un vrai besoin et voir le résultat servir.",
+    "J'utilise l'IA au quotidien pour apprendre plus vite et relire mon code, en restant capable d'expliquer chaque ligne que je livre.",
   ],
+  now: 'En ce moment : je termine deux projets personnels en Symfony et React, et je cherche un poste de développeur web junior.',
+  languages: 'Français et russe (langues maternelles) · Anglais (B2)',
 }
 
 export const projects = [
@@ -42,26 +45,25 @@ export const projects = [
 
 export const experience = [
   {
+    when: '2024 – 2025',
+    role: 'Développeur web',
     org: 'Unicancer',
     place: 'Paris',
-    detail: 'Fédération nationale des centres de lutte contre le cancer',
-    role: 'Développeur web',
-    periods: ['Stage juillet 2024', 'CDD oct. – déc. 2024', 'CDD oct. – déc. 2025'],
-    intro:
-      "J'ai rejoint l'équipe web d'Unicancer en stage, puis j'y suis revenu deux fois en CDD. Je traitais les tickets GitLab en autonomie et je développais de nouvelles fonctionnalités pour les sites de l'organisation.",
+    periods: 'Stage, puis deux CDD',
+    text:
+      "Évolutions et maintenance des sites d'Unicancer, la fédération des centres de lutte contre le cancer. Après mon stage, l'équipe m'a fait revenir deux fois en CDD.",
     points: [
-      'Pages, formulaires et éléments interactifs en PHP / Symfony et React',
-      'Questionnaires en ligne créés avec SurveyJS',
-      'Corrections de bugs et modifications visuelles à partir des tickets GitLab',
-      'Recueil des besoins auprès des services internes, jusqu’à la mise en ligne',
+      'Pages, formulaires et éléments interactifs en Symfony et React',
+      'Questionnaires en ligne pour les services internes, avec SurveyJS',
+      'Tickets GitLab traités en autonomie, de la demande à la mise en ligne',
     ],
+    tags: ['PHP', 'Symfony', 'React', 'SurveyJS', 'Git', 'GitLab'],
   },
 ]
 
 export const education = [
-  { years: '2023 – 2026', title: 'BTS SIO option SLAM', where: 'CNED · développement d’applications', note: 'Obtenu' },
-  { years: '2021 – 2023', title: 'Licence Informatique (2 années)', where: 'UFR Sciences et Techniques, Rouen' },
-  { years: '2021', title: 'Baccalauréat général', where: 'Spécialités Mathématiques et NSI · Lycée Marceau, Chartres' },
+  { when: '2023 – 2026', title: 'BTS SIO option SLAM', where: 'CNED, à distance', note: 'Obtenu', text: 'Développement d’applications : PHP, Symfony, SQL, gestion de projet.' },
+  { when: '2021 – 2023', title: 'Licence Informatique', where: 'Université de Rouen', note: '2 années suivies' },
 ]
 
 // chaque compétence est reliée à l'endroit où elle a servi
