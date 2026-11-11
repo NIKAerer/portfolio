@@ -56,7 +56,7 @@ export const projects = [
       'Inspiré du jeu PokéSurvivor de JPTER78 (licence non commerciale), auquel j’ai ajouté le mode Aventure.',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
-    credit: 'Basé sur PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
+    credit: 'Inspiré du jeu PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
     links: [{ label: 'Jouer', href: 'https://nikaerer.github.io/pokesurvivor/' }],
     shots: [
       { src: 'projets/pokesurvivor-accueil.webp', alt: 'Accueil de PokéSurvivor avec la boîte de Pokémon', caption: 'Accueil et boîte de Pokémon' },
