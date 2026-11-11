@@ -53,7 +53,7 @@ export const projects = [
     stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
       'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
-      'Inspiré du jeu PokéSurvivor de JPTER78 (licence non commerciale), auquel j’ai ajouté le mode Aventure.',
+      'J’y ai ajouté le mode Aventure : la carte de Kanto, les combats au tour par tour et l’histoire.',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Inspiré du jeu PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
