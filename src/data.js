@@ -59,7 +59,7 @@ export const projects = [
     links: [{ label: 'Jouer', href: 'https://nikaerer.github.io/pokesurvivor/' }],
     shots: [
       { src: 'projets/pokesurvivor-accueil.webp', alt: 'Accueil de PokéSurvivor avec la boîte de Pokémon', caption: 'Accueil et boîte de Pokémon' },
-      { src: 'projets/pokesurvivor-carte.webp', alt: 'Mode Aventure : la carte de Kanto', caption: 'Mode Aventure : la carte de Kanto' },
+      { src: 'projets/pokesurvivor-carte.webp', alt: 'La carte de Kanto', caption: 'La carte de Kanto' },
       { src: 'projets/pokesurvivor-combat.webp', alt: 'Combat au tour par tour dans l’herbe', caption: 'Combat au tour par tour' },
       { src: 'projets/pokesurvivor-partie.webp', alt: 'Une partie survivor avec des hordes de Pokémon', caption: 'Mode survivor' },
     ],
