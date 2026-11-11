@@ -34,7 +34,7 @@ export const projects = [
       'Il se met à jour tout seul. Chaque version est un installateur signé, et un bouton « Rechercher une mise à jour » suffit : plus de vingt-cinq versions ont été publiées en une semaine, début novembre 2026.',
     ],
     code: 'https://github.com/NIKAerer/NIXUS',
-    links: [{ label: 'Versions publiées', href: 'https://github.com/NIKAerer/NIXUS/releases' }],
+    links: [],
     shots: [
       { src: 'projets/nixus-home.webp', alt: 'Accueil de NIXUS avec le classement entre amis et les dernières parties', caption: 'Accueil : classement entre amis et dernières parties' },
       { src: 'projets/nixus-draft.webp', alt: 'Écran de draft de NIXUS avec le choix du champion et le chat d’équipe', caption: 'Draft : choix du champion, statistiques et chat d’équipe' },
