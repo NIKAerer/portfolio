@@ -45,7 +45,7 @@ export const projects = [
   {
     slug: 'pokesurvivor',
     name: 'PokéSurvivor',
-    kind: 'Jeu web · mode Aventure',
+    kind: 'Jeu web',
     status: 'En ligne',
     pitch:
       'Parcourir Kanto avec son équipe, combattre au tour par tour et suivre l’histoire de la Team Rocket jusqu’à Giovanni, dans le navigateur ou sur téléphone.',
@@ -53,7 +53,6 @@ export const projects = [
     stack: ['JavaScript', 'PWA', 'GitHub Actions', 'Claude Code'],
     about: [
       'Le dresseur se déplace sur la carte de Kanto, ses Pokémon le suivent et les combats se jouent directement sur la carte. L’équipe a de vraies statistiques, on réapprend des attaques, on utilise des CT, on achète en boutique. Le jeu marche aussi hors ligne une fois installé sur le téléphone.',
-      'Le mode Aventure est mon ajout au jeu.',
     ],
     code: 'https://github.com/NIKAerer/pokesurvivor',
     credit: 'Inspiré du jeu PokéSurvivor de JPTER78 (PolyForm Noncommercial). Sprites : PMD SpriteCollab (CC BY-NC 4.0). Pokémon © Nintendo / Creatures / GAME FREAK.',
